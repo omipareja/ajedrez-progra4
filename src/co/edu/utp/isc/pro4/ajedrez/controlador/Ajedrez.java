@@ -47,6 +47,7 @@ public class Ajedrez {
         this();
         this.jugadores[0] = jugador1;
         this.jugadores[1] = jugador2;
+        //jugadores[1].jugar(tablero.getCasilla("C8"),tablero.getCasilla("B8"));
     }
 
     public void setPnlTablero(PnlTablero pnlTablero) {
