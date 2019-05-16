@@ -36,6 +36,11 @@ public abstract class Ficha extends Dibujable {
         return color;
     }
 
+        public void asociarFichaTablero(Ficha ficha,Casilla casilla){
+        ficha.setCasilla(casilla);
+        casilla.setFicha(ficha);
+    }
+    
     @Override
     public String toString() {
         String tipo = "";
@@ -55,8 +60,6 @@ public abstract class Ficha extends Dibujable {
         return tipo + (getColor() == Color.BLANCO ? "B" : "N");
     }
 
-    void asociarFichaTablero(Alfil aThis, Casilla casillaF) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
 }
