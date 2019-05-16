@@ -47,7 +47,7 @@ public class Ajedrez {
         this();
         this.jugadores[0] = jugador1;
         this.jugadores[1] = jugador2;
-        //jugadores[1].jugar(tablero.getCasilla("C8"),tablero.getCasilla("B8"));
+        
     }
 
     public void setPnlTablero(PnlTablero pnlTablero) {
@@ -63,6 +63,8 @@ public class Ajedrez {
 
         cronometro.iniciar();
         mostrarTablero();
+       // jugadores[1].jugar(tablero.getCasilla("C8"),tablero.getCasilla("B8"));
+        
         /*
         do {
             jugadores[turno].jugar();
@@ -97,6 +99,11 @@ public class Ajedrez {
         cronometro.cambio();
     }
 
+     
+    public Tablero getTablero(){
+        return this.tablero;
+    } 
+    
     private boolean validarJaqueMate() {
         //TODO: Validar si el jugador contrario ha quedado en Jaque Mate
         return false;

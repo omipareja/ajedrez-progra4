@@ -19,10 +19,19 @@ public class Jugador {
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
-
-    public void jugar() {
-        // TODO: Mover ficha de forma inteligente
+    
+    
+    public void jugar(Casilla casillaI, Casilla casillaF) {
+        if(casillaI.isOcupada()){
+            Ficha f;
+            f = casillaI.getFicha();    
+            f = casillaI.getFicha();
+            f.mover(ajedrez.getTablero(), casillaI, casillaF);
+        }
     }
+
+
+    
 
     public void setAjedrez(Ajedrez ajedrez) {
         this.ajedrez = ajedrez;
