@@ -66,11 +66,13 @@ public class FrmAjedrez extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre Blancas");
 
-        txtBlancas.setText("Cesar");
+        txtBlancas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBlancasActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre Negras");
-
-        txtNegras.setText("Ana");
 
         btnJugar.setText("Iniciar partida");
         btnJugar.addActionListener(new java.awt.event.ActionListener() {
@@ -238,6 +240,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jPanel7.add(jLabel6, gridBagConstraints);
 
         txtInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInicioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -246,6 +253,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jPanel7.add(txtInicio, gridBagConstraints);
 
         txtFin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFinActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -312,6 +324,18 @@ public class FrmAjedrez extends javax.swing.JFrame {
             pnlTablero.setToolTipText((char) ('A' + col - 1) + Integer.toString(row));
         }
     }//GEN-LAST:event_pnlTableroMouseMoved
+
+    private void txtBlancasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBlancasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBlancasActionPerformed
+
+    private void txtFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFinActionPerformed
+
+    private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInicioActionPerformed
 
     /**
      * @param args the command line arguments

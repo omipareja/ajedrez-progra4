@@ -20,7 +20,7 @@ public class Torre extends Ficha {
     }
 
     @Override
-    public void mover() {
+    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

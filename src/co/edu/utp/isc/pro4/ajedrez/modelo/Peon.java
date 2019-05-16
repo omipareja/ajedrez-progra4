@@ -21,7 +21,7 @@ public class Peon extends Ficha {
     }
 
     @Override
-    public void mover() {
+    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
         //TODO: Mover como peon
     }
 

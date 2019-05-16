@@ -20,7 +20,7 @@ public abstract class Ficha extends Dibujable {
         this.color = color;
     }
 
-    public abstract void mover();
+    public abstract void mover(Tablero tablero,Casilla casillaI, Casilla casillaF);
 
     public abstract void comer();
 
@@ -53,6 +53,10 @@ public abstract class Ficha extends Dibujable {
             tipo = "R";
         }
         return tipo + (getColor() == Color.BLANCO ? "B" : "N");
+    }
+
+    void asociarFichaTablero(Alfil aThis, Casilla casillaF) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
