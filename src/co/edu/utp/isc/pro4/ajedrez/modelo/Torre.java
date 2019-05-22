@@ -5,6 +5,7 @@
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
+import execepciones.MovimientoNoValidoException;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
@@ -20,7 +21,7 @@ public class Torre extends Ficha {
     }
 
     @Override
-      public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
+      public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
             boolean ocupada = false;
             int cI,cF,fI,fF;
             cI = casillaI.getColumna() - 'A';//x Inicial
@@ -42,10 +43,10 @@ public class Torre extends Ficha {
                 else if(casillaF.getFila() > casillaI.getFila()){
                     fI = fI + 1;
                 }
-                casillaC = tablero.getCasilla(cI,fI);
+                casillaC = tablero.getCasilla(fI,cI);
                 ocupada = casillaC.isOcupada();
                 while((casillaC.getFila() != casillaF.getFila()) && (casillaC.getColumna() != casillaF.getColumna()) && !ocupada){
-                    casillaC = tablero.getCasilla(cI,fI);
+                    casillaC = tablero.getCasilla(fI,cI);
                     ocupada = casillaC.isOcupada();
                     if (casillaF.getColumna() > casillaI.getColumna()){
                     cI = cI + 1;
@@ -81,7 +82,7 @@ public class Torre extends Ficha {
             }
         }
 
-    
+ 
 
     public void draw(Graphics2D g, float x, float y) {
         GeneralPath polyline = new GeneralPath(GeneralPath.WIND_EVEN_ODD, 17);
