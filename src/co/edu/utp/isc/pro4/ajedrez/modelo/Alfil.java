@@ -50,7 +50,7 @@ public class Alfil extends Ficha {
                 }
                  casillaC = tablero.getCasilla(fI,cI);
                 if(cI != cF || fI != fF){
-                    ocupada = casillaC.isOcupada();
+                   
                 }
                 while((cI != cF || fI != fF) && ocupada==false){
                     casillaC = tablero.getCasilla(fI,cI);

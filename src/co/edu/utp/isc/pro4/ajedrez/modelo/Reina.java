@@ -25,9 +25,138 @@ public class Reina extends Ficha {
 
     @Override
     public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+          boolean ocupada = false;
+            int cI,cF,fI,fF,restaF,restaC;
+            cI = casillaI.getColumna() - 'A';//columna Inicial
+            fI = casillaI.getFila() - 1;//fila Inicial
+            cF = casillaF.getColumna() - 'A';//columna Final 
+            fF = casillaF.getFila() - 1 ;//fila Final
+            Casilla casillaC;
+            casillaC = casillaI;
+            restaF= fI-fF;
+            restaC= cI-cF;
+            //(f1==f2) || (c1==c2) || (Math.abs(f1-f2) == Math.abs(c1-c2)) reina
+            if(fI==fF || cI==cF || (Math.abs(restaF)==Math.abs(restaC))){
+                
+                // se le asemeja el movimiento del alfil
+                
+                 if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI - 1;
+                }
+                else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI - 1;
+                }
+               
+                
+                
+                // condicion del movimiento de la torre
+                
+                
+                else if (casillaF.getColumna() > casillaI.getColumna()){
+                    cI = cI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna()){
+                    cI = cI - 1;
+                }
+                else if(casillaF.getFila() < casillaI.getFila()){
+                    fI = fI - 1;
+                }
+                else if(casillaF.getFila() > casillaI.getFila()){
+                    fI = fI + 1;
+                }
+                
+                   casillaC = tablero.getCasilla(fI,cI);
+                if(cI != cF || fI != fF){
+                    ocupada = casillaC.isOcupada();
+                }
+                while((cI != cF || fI != fF) && ocupada==false){
+                    casillaC = tablero.getCasilla(fI,cI);
+                    ocupada=casillaC.isOcupada();
+                   
+                    
+                   if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI - 1;
+                }
+                else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI - 1;
+                }
+               
+                
+                
+                // condicion del movimiento de la torre
+                
+                
+                else if (casillaF.getColumna() > casillaI.getColumna()){
+                    cI = cI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna()){
+                    cI = cI - 1;
+                }
+                else if(casillaF.getFila() < casillaI.getFila()){
+                    fI = fI - 1;
+                }
+                else if(casillaF.getFila() > casillaI.getFila()){
+                    fI = fI + 1;
+                }   
+                    
+                 
+                }
+               
+                  if(!casillaF.isOcupada()){//Que en la casilla final no haya nada    TIPO 1 (MOVIMIENTO NORMAL)
+                    if(!ocupada){//Si no hay nada en la trayectoria
+                        casillaI.setFichaNull();
+                        super.asociarFichaTablero(this, casillaF);
+                    }
+                    else{
+                        System.out.println("Hay una ficha en la trayectoria");
+                    }
+                }
+                else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
+                   if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
+                        if(!ocupada){
+                            this.comer(casillaI,casillaF);
+                        }
+                        else{
+                            System.out.println("Hay una ficha en trayectoria");
+                        }
+                   }
+                   else{
+                       System.out.println("Ambas fichas son del mismo color");
+                   }
+                }    
+            }
+                 
+            
+            else{
+                System.out.println("De esa forma no se mueve la Reina");
+            }
+            
+            
+            
+        
     }
-
+    
 
     @Override
     public void draw(Graphics2D g, float x, float y) {
