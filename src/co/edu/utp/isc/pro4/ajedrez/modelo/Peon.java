@@ -25,10 +25,7 @@ public class Peon extends Ficha {
         //TODO: Mover como peon
     }
 
-    @Override
-    public void comer() {
-        //TODO: Comer como peon
-    }
+   
 
     @Override
     public void draw(Graphics2D g, float x, float y) {

@@ -7,6 +7,10 @@ package co.edu.utp.isc.pro4.ajedrez.ui;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Ajedrez;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Jugador;
+import execepciones.MovimientoNoValidoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +39,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBlancas = new javax.swing.JTextField();
@@ -58,6 +63,8 @@ public class FrmAjedrez extends javax.swing.JFrame {
         txtInicio = new javax.swing.JTextField();
         txtFin = new javax.swing.JTextField();
         lblJugador = new javax.swing.JLabel();
+
+        jTextField3.setText("jTextField3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -267,7 +274,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
 
         lblJugador.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblJugador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJugador.setText("Cesar");
+        lblJugador.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -296,6 +303,10 @@ public class FrmAjedrez extends javax.swing.JFrame {
                 new Jugador(txtNegras.getText().trim()));
         juego.setPnlTablero((PnlTablero) pnlTablero);
         juego.jugar();
+      
+        
+        lblJugador.setText(txtBlancas.getText());
+        
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void pnlTableroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTableroMouseReleased
@@ -312,8 +323,16 @@ public class FrmAjedrez extends javax.swing.JFrame {
             } else {
                 txtFin.setText((char) ('A' + col - 1) + Integer.toString(row));
                 jugadaInicial = true;
+                try {
+                juego.moverFicha(txtInicio.getText(),txtFin.getText());
+                }
+                catch (MovimientoNoValidoException ex){
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+                Logger.getLogger(FrmAjedrez.class.getName()).log(Level.SEVERE,null,ex);
+                }
             }
         }
+       
     }//GEN-LAST:event_pnlTableroMouseReleased
 
     private void pnlTableroMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTableroMouseMoved
@@ -326,7 +345,8 @@ public class FrmAjedrez extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlTableroMouseMoved
 
     private void txtBlancasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBlancasActionPerformed
-        // TODO add your handling code here:
+       
+        
     }//GEN-LAST:event_txtBlancasActionPerformed
 
     private void txtFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFinActionPerformed
@@ -386,6 +406,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblJugador;
     private javax.swing.JPanel pnlTablero;
     private javax.swing.JTextField txtBlancas;

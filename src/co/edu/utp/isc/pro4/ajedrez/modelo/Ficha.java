@@ -6,6 +6,7 @@
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Dibujable;
+import execepciones.MovimientoNoValidoException;
 
 /**
  *
@@ -20,9 +21,13 @@ public abstract class Ficha extends Dibujable {
         this.color = color;
     }
 
-    public abstract void mover(Tablero tablero,Casilla casillaI, Casilla casillaF);
+      public abstract void mover(Tablero tablero, Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException;
 
-    public abstract void comer();
+
+ public void comer(Casilla casillaI, Casilla casillaF){
+        asociarFichaTablero(casillaI.getFicha(),casillaF);
+        casillaI.setFichaNull();
+    };
 
     public Casilla getCasilla() {
         return casilla;
