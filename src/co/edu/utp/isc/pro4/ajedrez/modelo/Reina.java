@@ -130,7 +130,7 @@ public class Reina extends Ficha {
                         super.asociarFichaTablero(this, casillaF);
                     }
                     else{
-                        //System.out.println("Hay una ficha en la trayectoria");
+                        ///System.out.println("Hay una ficha en la trayectoria");
                          JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
                     }
                 }
