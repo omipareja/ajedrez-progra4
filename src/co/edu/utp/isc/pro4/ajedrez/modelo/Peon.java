@@ -5,10 +5,12 @@
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
+import execepciones.MovimientoNoValidoException;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,46 +32,69 @@ public class Peon extends Ficha {
             fI = casillaI.getFila() - 1;//y Inicial
             cF = casillaF.getColumna() - 'A';//x Final 
             fF = casillaF.getFila() - 1 ;//y Final
-            restaA = fF - fI;
-            Casilla casillaC;
+            restaA = fI - fF;
+            restaB = cF-cI;
+            Casilla casillaC;   
 
-            if(Math.abs(restaA) == 1 ||Math.abs(restaA) == 2){
-                if(restaA == 2 && casillaI.getFicha().getColor() == Color.BLANCO && fI == 1){
+            if((Math.abs(restaA) == 2 || Math.abs(restaA) == 1)){// Condicion general de movimiento del peon
+                if(restaA == 2 && casillaI.getFicha().getColor() == Color.BLANCO && fI == 1){//Caso para mover 2 casillas BLANCO
                     fI = fI + 1;
+                    casillaC = tablero.getCasilla(fI,cI);
+                    if(fI != fF || cI != cF){
+                        ocupada = casillaC.isOcupada();
+                    }
                 }
-                else if(restaA == -2 && casillaI.getFicha().getColor() == Color.NEGRO && fI == 6){
+           
+                 else if(restaA == -2 && casillaI.getFicha().getColor() == Color.NEGRO && fI == 6){//Caso para mover 2 casillas NEGRO
                     fI = fI - 1;
+                    
+                     casillaC = tablero.getCasilla(fI,cI);
+                    if(fI != fF || cI != cF){
+                        ocupada = casillaC.isOcupada();
+                    }
                 }
-                casillaC = tablero.getCasilla(fI,cI);
-                ocupada = casillaC.isOcupada();
+               
+                
                 System.out.println(ocupada);
                 System.out.println("restaA: "+ restaA);
-                if(!ocupada || Math.abs(restaA) == 1){
+                if(!ocupada){
                     if(!casillaF.isOcupada()){//Movimiento normal
-                        if(this.getColor() == Color.NEGRO && (restaA == 1 || (restaA == 2 && fI == 6)) ){
-                            casillaI.setFichaNull();
-                            super.asociarFichaTablero(this, casillaF);
-                            System.out.println("Entro");
+                   if(this.getColor() == Color.NEGRO){
+                            if(restaA == 1 || (restaA == 2 && fI == 6)){
+                                casillaI.setFichaNull();
+                                super.asociarFichaTablero(this, casillaF);
+                            }
+                            else{
+                                System.out.println("Este movimiento no es valido en esta fila");
+                            }
                         }
-                        else if(this.getColor() == Color.BLANCO && (restaA == -1 || restaA == -2) && fI == 1){
-                            casillaI.setFichaNull();
-                            super.asociarFichaTablero(this, casillaF);
+                       else if(this.getColor() == Color.BLANCO){
+                            if(restaA == 1 || (restaA == -2 && fI == 1)){
+                                casillaI.setFichaNull();
+                                super.asociarFichaTablero(this, casillaF);
+                            }
+                            else{
+                                System.out.println("Este movimiento no es valido en esta fila");
+                            }  
                         }
                     }
-                    else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
-                        System.out.println("Ambas fichas son del mismo color");
-                    }   
-                    else if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
-                        if(Math.abs(restaB) == 1){
-                            if(casillaI.getFicha().getColor() == Color.BLANCO && restaA == 1){
-                                this.comer(casillaI, casillaF);   
+                     else if(casillaF.isOcupada()){
+                        if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
+                            if(Math.abs(restaB) == 1){
+                                if(casillaI.getFicha().getColor() == Color.BLANCO && restaA == -1){
+                                    this.comer(casillaI, casillaF);   
+                                }
+                                else if(casillaI.getFicha().getColor() == Color.NEGRO && restaA == 1){
+                                    this.comer(casillaI, casillaF);
+                                }    
                             }
-                            else if(casillaI.getFicha().getColor() == Color.NEGRO && restaA == -1){
-                                this.comer(casillaI, casillaF);
+                            else{
+                                //throw new MovimientoNoValidoException("Asi no come el peon");
+                                JOptionPane.showMessageDialog(null,"Asi no come el Peon");
                             }    
                         }
                     }
-                }
+                
                 else if(ocupada){//Movimiento no valido por elemento en la trayectoria
                     System.out.println("Movimiento no valido por ficha en trayectoria");
                 }
@@ -77,9 +102,10 @@ public class Peon extends Ficha {
             else{
                System.out.println ("De esa forma no se mueve el peon");
             }
-    }
+    
 
-   
+    }
+    }
 
     @Override
     public void draw(Graphics2D g, float x, float y) {
@@ -94,4 +120,8 @@ public class Peon extends Ficha {
         g.draw(new Ellipse2D.Float(x + 17, y + 15, 16, 16));
         g.draw(new Rectangle2D.Float(x + 15, y + 30, 20, 15));
     }
-}
+
+    }
+   
+
+

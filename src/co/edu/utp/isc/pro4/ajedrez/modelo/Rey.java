@@ -11,6 +11,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -127,7 +128,8 @@ public class Rey extends Ficha {
                         super.asociarFichaTablero(this, casillaF);
                     }
                     else{
-                        System.out.println("Hay una ficha en la trayectoria");
+                      //  System.out.println("Hay una ficha en la trayectoria");
+                        JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
                     }
                 }
                 else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
@@ -136,11 +138,13 @@ public class Rey extends Ficha {
                             this.comer(casillaI,casillaF);
                         }
                         else{
-                            System.out.println("Hay una ficha en trayectoria");
+                           // System.out.println("Hay una ficha en trayectoria");
+                            JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
                         }
                    }
                    else{
-                       System.out.println("Ambas fichas son del mismo color");
+                      // System.out.println("Ambas fichas son del mismo color");
+                        JOptionPane.showMessageDialog(null,"Ambas fichas son del mismo color");
                    }
                 }
                 

@@ -9,6 +9,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,14 +47,17 @@ public class Caballo extends Ficha {
                     this.comer(casillaI,casillaF);
                 }
                 else {
-                    System.out.println("Son del mismo color");
+                    //System.out.println("Son del mismo color");
+                     JOptionPane.showMessageDialog(null,"Son del mismo color");
                 }
                 }
                 
                 
             }
             else{
-                System.out.println("De esa forma no se mueve el caballo");
+              //  System.out.println("De esa forma no se mueve el caballo");
+                JOptionPane.showMessageDialog(null,"De esa forma no se mueve el caballo");
+                
             }
         
     }

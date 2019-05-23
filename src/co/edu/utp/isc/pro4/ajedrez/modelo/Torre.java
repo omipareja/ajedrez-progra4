@@ -9,6 +9,7 @@ import execepciones.MovimientoNoValidoException;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -77,7 +78,8 @@ public class Torre extends Ficha {
                         super.asociarFichaTablero(this, casillaF);
                     }
                     else{
-                        System.out.println("Hay una ficha en la trayectoria");
+                      //  System.out.println("Hay una ficha en la trayectoria");
+                        JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
                     }
                 }
                 else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
@@ -86,16 +88,19 @@ public class Torre extends Ficha {
                             this.comer(casillaI,casillaF);
                         }
                         else{
-                            System.out.println("Hay una ficha en trayectoria");
+                            //System.out.println("Hay una ficha en trayectoria");
+                            JOptionPane.showMessageDialog(null,"Hay una ficha en trayectoria");
                         }
                    }
                    else{
-                       System.out.println("Ambas fichas son del mismo color");
+                       //System.out.println("Ambas fichas son del mismo color");
+                       JOptionPane.showMessageDialog(null,"Ambas fichas son del mismo color");
                    }
                 }    
             }
             else{
-                System.out.println("De esa forma no se mueve la Torre");
+               // System.out.println("De esa forma no se mueve la Torre");
+                JOptionPane.showMessageDialog(null,"De esa forma no se mueve la Torre");
             }
         }
 
