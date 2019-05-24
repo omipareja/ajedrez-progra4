@@ -23,10 +23,10 @@ public class Peon extends Ficha {
     }
 
     @Override
-    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
+    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
         //TODO: Mover como peon
         
-        boolean ocupada = false;
+        boolean ocupada = false,efectivo = false;
             int cI,cF,fI,fF, restaA,fIAUX, restaB;
             cI = casillaI.getColumna() - 'A';//x Inicial
             fI = casillaI.getFila() - 1;//y Inicial
@@ -64,6 +64,7 @@ public class Peon extends Ficha {
                               if((restaA == 1 && cF== cI) || (restaA == 2 && fIAUX == 6)){
                                 casillaI.setFichaNull();
                                 super.asociarFichaTablero(this, casillaF);
+                                 efectivo = true;
                             }
                               else if(fIAUX!=6){
                                 //System.out.println("Este movimiento no es valido en esta fila");
@@ -78,6 +79,7 @@ public class Peon extends Ficha {
                              if((restaA == -1 && cF == cI) || (restaA == -2 && fIAUX == 1)){
                                 casillaI.setFichaNull();
                                 super.asociarFichaTablero(this, casillaF);
+                                 efectivo = true;
                             }
                              else if (fIAUX != 1) {
                                // System.out.println("Este movimiento no es valido en esta fila");
@@ -95,10 +97,18 @@ public class Peon extends Ficha {
                         if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
                             if(Math.abs(restaB) == 1){
                                 if(casillaI.getFicha().getColor() == Color.BLANCO && restaA == -1){
-                                    this.comer(casillaI, casillaF);   
+                                      if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                            }
+                                    this.comer(casillaI, casillaF); 
+                                     efectivo = true;
                                 }
                                 else if(casillaI.getFicha().getColor() == Color.NEGRO && restaA == 1){
+                                      if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                            }
                                     this.comer(casillaI, casillaF);
+                                    efectivo = true;
                                 }    
                             }
                             else{
@@ -120,7 +130,7 @@ public class Peon extends Ficha {
                 JOptionPane.showMessageDialog(null,"De esa forma no se mueve el peon");
 
             }
-    
+    return efectivo;
 
     }
     

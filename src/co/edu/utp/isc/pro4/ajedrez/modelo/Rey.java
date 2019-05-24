@@ -24,8 +24,8 @@ public class Rey extends Ficha {
     }
 
     @Override
-    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
-        boolean ocupada = false;
+    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
+        boolean ocupada = false ,  efectivo = false;
             int cI,cF,fI,fF,restaF,restaC;
             cI = casillaI.getColumna() - 'A';//columna Inicial
             fI = casillaI.getFila() - 1;//fila Inicial
@@ -126,6 +126,7 @@ public class Rey extends Ficha {
                     if(!ocupada){//Si no hay nada en la trayectoria
                         casillaI.setFichaNull();
                         super.asociarFichaTablero(this, casillaF);
+                        efectivo=true;
                     }
                     else{
                       //  System.out.println("Hay una ficha en la trayectoria");
@@ -135,7 +136,11 @@ public class Rey extends Ficha {
                 else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
                    if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
                         if(!ocupada){
+                              if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                            }
                             this.comer(casillaI,casillaF);
+                             efectivo=true;
                         }
                         else{
                            // System.out.println("Hay una ficha en trayectoria");
@@ -161,7 +166,7 @@ public class Rey extends Ficha {
             }
 
 
-        
+        return efectivo;
         
         }
     

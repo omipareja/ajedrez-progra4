@@ -7,6 +7,11 @@
         <Property name="text" type="java.lang.String" value="jTextField3"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton2"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -154,6 +159,9 @@
               <Dimension value="[250, 250]"/>
             </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="reiniciar"/>
+          </AccessibilityProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
@@ -652,7 +660,13 @@
                     <TitledBorder title="Movimientos"/>
                   </Border>
                 </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor de Mano"/>
+                </Property>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Reiniciar"/>
+              </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                   <GridBagConstraints gridX="0" gridY="4" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.1" weightY="0.1"/>
@@ -661,27 +675,19 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
+                <Component class="javax.swing.JButton" name="jButton1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Reiniciar Juego"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                       <BorderConstraints direction="Center"/>
                     </Constraint>
                   </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="txtMovimientos">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                        <Property name="columns" type="int" value="20"/>
-                        <Property name="rows" type="int" value="5"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel7">

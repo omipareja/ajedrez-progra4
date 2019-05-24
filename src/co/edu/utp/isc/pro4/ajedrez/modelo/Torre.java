@@ -22,8 +22,8 @@ public class Torre extends Ficha {
     }
 
     @Override
-      public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
-            boolean ocupada = false;
+      public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
+            boolean ocupada = false,efectivo = false;
             int cI,cF,fI,fF;
             cI = casillaI.getColumna() - 'A';//x Inicial
             fI = casillaI.getFila() - 1;//y Inicial
@@ -76,6 +76,7 @@ public class Torre extends Ficha {
                     if(!ocupada){//Si no hay nada en la trayectoria
                         casillaI.setFichaNull();
                         super.asociarFichaTablero(this, casillaF);
+                        efectivo = true;
                     }
                     else{
                       //  System.out.println("Hay una ficha en la trayectoria");
@@ -85,7 +86,11 @@ public class Torre extends Ficha {
                 else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
                    if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
                         if(!ocupada){
+                              if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                            }
                             this.comer(casillaI,casillaF);
+                            efectivo = true;
                         }
                         else{
                             //System.out.println("Hay una ficha en trayectoria");
@@ -102,6 +107,8 @@ public class Torre extends Ficha {
                // System.out.println("De esa forma no se mueve la Torre");
                 JOptionPane.showMessageDialog(null,"De esa forma no se mueve la Torre");
             }
+            
+            return efectivo;
         }
 
  

@@ -22,10 +22,11 @@ public class Caballo extends Ficha {
     }
 
     @Override
-    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
+    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
         
      boolean ocupada = false;
             int cI,cF,fI,fF;
+            boolean efectivo = false;
             cI = casillaI.getColumna() - 'A';//x Inicial
             fI = casillaI.getFila() - 1;//y Inicial
             cF = casillaF.getColumna() - 'A';//x Final 
@@ -37,14 +38,18 @@ public class Caballo extends Ficha {
                 
                 casillaI.setFichaNull();
                 super.asociarFichaTablero(this, casillaF);
+                  efectivo = true;
                 
                 }
                 
                 else {
                     
                 if((this.getColor() != casillaF.getFicha().getColor())){
-                
+                      if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                            }    
                     this.comer(casillaI,casillaF);
+                    efectivo = true;
                 }
                 else {
                     //System.out.println("Son del mismo color");
@@ -59,6 +64,7 @@ public class Caballo extends Ficha {
                 JOptionPane.showMessageDialog(null,"De esa forma no se mueve el caballo");
                 
             }
+            return efectivo;
         
     }
 

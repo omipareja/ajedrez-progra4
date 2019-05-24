@@ -40,6 +40,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jTextField3 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBlancas = new javax.swing.JTextField();
@@ -55,8 +56,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtMovimientos = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -65,6 +65,8 @@ public class FrmAjedrez extends javax.swing.JFrame {
         lblJugador = new javax.swing.JLabel();
 
         jTextField3.setText("jTextField3");
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -203,14 +205,16 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jPanel4.add(jPanel3, gridBagConstraints);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Movimientos"));
+        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        txtMovimientos.setEditable(false);
-        txtMovimientos.setColumns(20);
-        txtMovimientos.setRows(5);
-        jScrollPane1.setViewportView(txtMovimientos);
-
-        jPanel5.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jButton1.setText("Reiniciar Juego");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1, java.awt.BorderLayout.CENTER);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -219,6 +223,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         jPanel4.add(jPanel5, gridBagConstraints);
+        jPanel5.getAccessibleContext().setAccessibleName("Reiniciar");
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Jugada"));
         java.awt.GridBagLayout jPanel7Layout = new java.awt.GridBagLayout();
@@ -290,6 +295,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jPanel4.add(jPanel7, gridBagConstraints);
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
+        jPanel4.getAccessibleContext().setAccessibleName("reiniciar");
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -357,6 +363,19 @@ public class FrmAjedrez extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtInicioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        btnJugar.setEnabled(false);
+        juego = new Ajedrez(
+            new Jugador(txtBlancas.getText().trim()),
+            new Jugador(txtNegras.getText().trim()));
+        juego.setPnlTablero((PnlTablero) pnlTablero);
+        juego.jugar();
+
+        lblJugador.setText(txtBlancas.getText());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -391,6 +410,8 @@ public class FrmAjedrez extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -403,7 +424,6 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -412,7 +432,6 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private javax.swing.JTextField txtBlancas;
     private javax.swing.JTextField txtFin;
     private javax.swing.JTextField txtInicio;
-    private javax.swing.JTextArea txtMovimientos;
     private javax.swing.JTextField txtNegras;
     // End of variables declaration//GEN-END:variables
 }
