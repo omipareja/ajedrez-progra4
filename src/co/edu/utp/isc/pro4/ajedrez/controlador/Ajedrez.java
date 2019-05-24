@@ -95,10 +95,14 @@ public class Ajedrez {
         }
          */
     }
+    
+      public int getTurno(){
+        return turno;
+    }
 
     public void cambioTurno() {
         turno = (turno == 0 ? 1 : 0);
-        cronometro.cambio();
+       // cronometro.cambio();
     }
 
      
@@ -153,7 +157,8 @@ public class Ajedrez {
     
     public void moverFicha(String inicio, String fin) throws MovimientoNoValidoException {
         jugadores[turno].jugar(tablero.getCasilla(inicio),tablero.getCasilla(fin));
-        mostrarTablero();
+        this.mostrarTablero();
+        this.cambioTurno();
     }
     
     

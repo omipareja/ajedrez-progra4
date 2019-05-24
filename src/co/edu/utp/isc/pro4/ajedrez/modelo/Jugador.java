@@ -7,6 +7,7 @@ package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Ajedrez;
 import execepciones.MovimientoNoValidoException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,8 +28,16 @@ public class Jugador {
             Ficha f;
             f = casillaI.getFicha();    
             f = casillaI.getFicha();
-            f.mover(ajedrez.getTablero(), casillaI, casillaF);
+             System.out.println("Color: "+ casillaI.getFicha().getColor()+". Turno:"+ajedrez.getTurno());
+             // JOptionPane.showMessageDialog(null,"Color: "+ casillaI.getFicha().getColor()+". Turno:"+ajedrez.getTurno());
+            if((casillaI.getFicha().getColor() == Color.BLANCO) && (ajedrez.getTurno() == 0) 
+                || (casillaI.getFicha().getColor() == Color.NEGRO) && (ajedrez.getTurno() == 1))
+                f.mover(ajedrez.getTablero(), casillaI, casillaF);
+            else{
+                ajedrez.cambioTurno();
+           
         }
+    }
     }
 
 
