@@ -61,22 +61,34 @@ public class Peon extends Ficha {
                 if(!ocupada){
                     if(!casillaF.isOcupada()){//Movimiento normal
                    if(this.getColor() == Color.NEGRO){
-                              if(restaA == 1 || (restaA == 2 && fIAUX == 6)){
+                              if((restaA == 1 && cF== cI) || (restaA == 2 && fIAUX == 6)){
                                 casillaI.setFichaNull();
                                 super.asociarFichaTablero(this, casillaF);
                             }
-                            else{
-                                System.out.println("Este movimiento no es valido en esta fila");
+                              else if(fIAUX!=6){
+                                //System.out.println("Este movimiento no es valido en esta fila");
+                                JOptionPane.showMessageDialog(null,"Este movimiento no es valido en esta fila");
                             }
+                              else{
+                                  //System.out.println("asi no se mueve el peon");
+                                  JOptionPane.showMessageDialog(null,"asi no se mueve el peon");
+                              }
                         }
                        else if(this.getColor() == Color.BLANCO){
-                             if(restaA == -1 || (restaA == -2 && fIAUX == 1)){
+                             if((restaA == -1 && cF == cI) || (restaA == -2 && fIAUX == 1)){
                                 casillaI.setFichaNull();
                                 super.asociarFichaTablero(this, casillaF);
                             }
-                            else{
-                                System.out.println("Este movimiento no es valido en esta fila");
+                             else if (fIAUX != 1) {
+                               // System.out.println("Este movimiento no es valido en esta fila");
+                                JOptionPane.showMessageDialog(null,"Este movimiento no es valido en esta fila");
                             }  
+                             else{
+                                 
+                                 // System.out.println("asi no se mueve el peon");
+                                 JOptionPane.showMessageDialog(null,"asi no se mueve el peon");
+                                 
+                             }
                         }
                     }
                      else if(casillaF.isOcupada()){
@@ -92,17 +104,21 @@ public class Peon extends Ficha {
                             else{
                                 //throw new MovimientoNoValidoException("Asi no come el peon");
                                 //JOptionPane.showMessageDialog(null,"Asi no come el Peon");
-                                  throw new MovimientoNoValidoException("Asi no come el peon");
+                                   JOptionPane.showMessageDialog(null,"Asi no come el Peon");
                             }    
                         }
                     }
                 }
                 else if(ocupada){//Movimiento no valido por elemento en la trayectoria
-                     throw new MovimientoNoValidoException("Movimiento no valido por ficha en trayectoria");
+                   //  throw new MovimientoNoValidoException("Movimiento no valido por ficha en trayectoria");
+                      JOptionPane.showMessageDialog(null,"Movimiento no valido por ficha en trayectoria");
+
                 }
             }
             else{
-               throw new MovimientoNoValidoException("De esa forma no se mueve el peon");
+             //  throw new MovimientoNoValidoException("De esa forma no se mueve el peon");
+                JOptionPane.showMessageDialog(null,"De esa forma no se mueve el peon");
+
             }
     
 
