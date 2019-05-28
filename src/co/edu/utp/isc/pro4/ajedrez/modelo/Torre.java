@@ -20,10 +20,13 @@ public class Torre extends Ficha {
     public Torre(Color color) {
         super(color);
     }
-
-    @Override
-      public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
-            boolean ocupada = false,efectivo = false;
+    
+    
+    
+    
+     
+      private boolean trayectoria(Tablero tablero,Casilla casillaI, Casilla casillaF)  {
+            boolean ocupada = false;
             int cI,cF,fI,fF;
             cI = casillaI.getColumna() - 'A';//x Inicial
             fI = casillaI.getFila() - 1;//y Inicial
@@ -31,7 +34,7 @@ public class Torre extends Ficha {
             fF = casillaF.getFila() - 1 ;//y Final
             Casilla casillaC;
             casillaC = casillaI;
-            if(fI==fF || cI==cF){
+        
                 if (casillaF.getColumna() > casillaI.getColumna()){
                     cI = cI + 1;
                 }
@@ -51,6 +54,7 @@ public class Torre extends Ficha {
                 while((cI != cF || fI != fF) && ocupada==false){
                     casillaC = tablero.getCasilla(fI,cI);
                     ocupada=casillaC.isOcupada();
+                     System.out.println("OCUPADA:" +  ocupada);
                    
                     
                     
@@ -67,51 +71,76 @@ public class Torre extends Ficha {
                     fI = fI + 1;
                 }
                     
-                   
                 }
-               
-                
-                
-                  if(!casillaF.isOcupada()){//Que en la casilla final no haya nada    TIPO 1 (MOVIMIENTO NORMAL)
-                    if(!ocupada){//Si no hay nada en la trayectoria
-                        casillaI.setFichaNull();
-                        super.asociarFichaTablero(this, casillaF);
-                        efectivo = true;
-                    }
-                    else{
-                      //  System.out.println("Hay una ficha en la trayectoria");
-                        JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
-                    }
-                }
-                else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
-                   if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
-                        if(!ocupada){
-                              if(casillaF.getFicha() instanceof Rey){
-                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
-                            }
-                            this.comer(casillaI,casillaF);
-                            efectivo = true;
-                        }
-                        else{
-                            //System.out.println("Hay una ficha en trayectoria");
-                            JOptionPane.showMessageDialog(null,"Hay una ficha en trayectoria");
-                        }
-                   }
-                   else{
-                       //System.out.println("Ambas fichas son del mismo color");
-                       JOptionPane.showMessageDialog(null,"Ambas fichas son del mismo color");
-                   }
-                }    
-            }
-            else{
-               // System.out.println("De esa forma no se mueve la Torre");
-                JOptionPane.showMessageDialog(null,"De esa forma no se mueve la Torre");
-            }
             
-            return efectivo;
+            
+            
+            return ocupada;
         }
 
- 
+
+     @Override
+    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
+        boolean ocupada = false, efectivo = false;
+        int cI,cF,fI,fF;
+        cI = casillaI.getColumna() - 'A';//x Inicial
+        fI = casillaI.getFila() - 1;//y Inicial
+        cF = casillaF.getColumna() - 'A';//x Final 
+        fF = casillaF.getFila() - 1 ;//y Final
+        Casilla casillaC;
+        casillaC = casillaI;
+        if(fI==fF || cI==cF){
+            ocupada = trayectoria(tablero, casillaI, casillaF);
+            if(!ocupada){
+                if(!casillaF.isOcupada()){//Movimiento normal
+                    casillaI.setFichaNull();
+                    super.asociarFichaTablero(this, casillaF);
+                    efectivo = true;
+                }
+                else if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
+                    this.comer(casillaI, casillaF);
+                    efectivo = true;
+                }
+                else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
+                    //System.out.println("Movimiento no valido porque ambas fichas son del mismo color.");
+                }
+            }
+            else{//Movimiento no valido por elemento en la trayectoria
+                //System.out.println("Movimiento no valido por ficha en trayectoria");
+            }
+        }
+        else{
+        //    System.out.println("Asi no se mueve la torre");
+          JOptionPane.showMessageDialog(null,"si no se mueve la torre");
+        }
+        return efectivo;
+    }
+    @Override
+    public void haceJaque(Tablero tablero){
+        int cI, fI, cF, fF;
+        cI = this.getCasilla().getColumna() - 'A';
+        fI = this.getCasilla().getFila() - 1;
+        Casilla casillaC;
+        Ficha rey;
+        rey = this;
+        boolean ocupada;
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                casillaC = tablero.getCasilla(i,j);
+                if(casillaC.getFicha() instanceof Rey && casillaC.getFicha().getColor() != this.getColor()){
+                    rey = casillaC.getFicha();
+                }
+            }
+        }
+        cF = rey.getCasilla().getColumna() - 'A';
+        fF = rey.getCasilla().getFila() - 1;
+        if(fI==fF || cI==cF){
+            ocupada = trayectoria(tablero, this.getCasilla(), rey.getCasilla());
+            if(!ocupada){
+                this.setJaque(true);
+            }
+        }
+    }
 
     public void draw(Graphics2D g, float x, float y) {
         GeneralPath polyline = new GeneralPath(GeneralPath.WIND_EVEN_ODD, 17);

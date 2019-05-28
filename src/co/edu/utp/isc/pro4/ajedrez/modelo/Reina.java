@@ -24,148 +24,161 @@ public class Reina extends Ficha {
         super(color);
     }
 
-    @Override
+    private boolean trayectoria(Tablero tablero, Casilla casillaI, Casilla casillaF){
+        boolean ocupada = false;
+        int cI,cF,fI,fF;
+        cI = casillaI.getColumna() - 'A';//x Inicial
+        fI = casillaI.getFila() - 1;//y Inicial
+        cF = casillaF.getColumna() - 'A';//x Final 
+        fF = casillaF.getFila() - 1 ;//y Final
+        Casilla casillaC;
+        casillaC = casillaI;
+        //Condiciones diagonales
+        if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+            cI = cI + 1;
+            fI = fI + 1;
+        }
+        else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+            cI = cI - 1;
+            fI = fI + 1;
+        }
+        else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+            cI = cI - 1;
+            fI = fI - 1;
+        }
+        else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+            cI = cI + 1;
+            fI = fI - 1;
+        }
+        //Condiciones rectas
+        else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() == casillaI.getFila()){//DERECHA
+            cI = cI + 1;
+        }
+        else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() == casillaI.getFila()){//IZQUIERDA
+            cI = cI - 1;
+        }
+        else if(casillaF.getFila() < casillaI.getFila() && casillaF.getColumna() == casillaI.getColumna()){//ABAJO 
+            fI = fI - 1;
+        }
+        else if(casillaF.getFila() > casillaI.getFila() && casillaF.getColumna() == casillaI.getColumna()){//ARRIBA
+            fI = fI + 1;
+        }
+        casillaC = tablero.getCasilla(fI,cI);
+        if(cI != cF || fI != fF){
+            ocupada = casillaC.isOcupada();
+        }
+        while((cI != cF || fI != fF) && ocupada==false){
+            casillaC = tablero.getCasilla(fI,cI);
+            ocupada = casillaC.isOcupada();
+            if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                cI = cI + 1;
+                fI = fI + 1;
+            }
+            //condiciones diagonales
+            else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                cI = cI - 1;
+                fI = fI + 1;
+            }
+            else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                cI = cI - 1;
+                fI = fI - 1;
+            }
+            else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                cI = cI + 1;
+                fI = fI - 1;
+            }
+            //Condiciones rectas
+            else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() == casillaI.getFila()){//DERECHA
+            cI = cI + 1;
+            }
+            else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() == casillaI.getFila()){//IZQUIERDA
+                cI = cI - 1;
+            }
+            else if(casillaF.getFila() < casillaI.getFila() && casillaF.getColumna() == casillaI.getColumna()){//ABAJO 
+                fI = fI - 1;
+            }
+            else if(casillaF.getFila() > casillaI.getFila() && casillaF.getColumna() == casillaI.getColumna()){//ARRIBA
+                fI = fI + 1;
+            }
+        }
+            return ocupada;
+    }
+    
+    
+    
+    
+    
+        @Override
     public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
-        
-          boolean ocupada = false,efectivo = false;
-            int cI,cF,fI,fF,restaF,restaC;
-            cI = casillaI.getColumna() - 'A';//columna Inicial
-            fI = casillaI.getFila() - 1;//fila Inicial
-            cF = casillaF.getColumna() - 'A';//columna Final 
-            fF = casillaF.getFila() - 1 ;//fila Final
-            Casilla casillaC;
-            casillaC = casillaI;
-            restaF= fI-fF;
-            restaC= cI-cF;
-            //(f1==f2) || (c1==c2) || (Math.abs(f1-f2) == Math.abs(c1-c2)) reina
-            if(fI==fF || cI==cF || (Math.abs(restaF)==Math.abs(restaC))){
-                
-                // se le asemeja el movimiento del alfil
-                
-                 if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
-                    cI = cI + 1;
-                    fI = fI + 1;
-                }
-                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
-                    cI = cI - 1;
-                    fI = fI + 1;
-                }
-                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
-                    cI = cI - 1;
-                    fI = fI - 1;
-                }
-                else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
-                    cI = cI + 1;
-                    fI = fI - 1;
-                }
-               
-                
-                
-                // condicion del movimiento de la torre
-                
-                
-                else if (casillaF.getColumna() > casillaI.getColumna()){
-                    cI = cI + 1;
-                }
-                else if(casillaF.getColumna() < casillaI.getColumna()){
-                    cI = cI - 1;
-                }
-                else if(casillaF.getFila() < casillaI.getFila()){
-                    fI = fI - 1;
-                }
-                else if(casillaF.getFila() > casillaI.getFila()){
-                    fI = fI + 1;
-                }
-                
-                   casillaC = tablero.getCasilla(fI,cI);
-                if(cI != cF || fI != fF){
-                    ocupada = casillaC.isOcupada();
-                }
-                while((cI != cF || fI != fF) && ocupada==false){
-                    casillaC = tablero.getCasilla(fI,cI);
-                    ocupada=casillaC.isOcupada();
-                   
-                    
-                   if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
-                    cI = cI + 1;
-                    fI = fI + 1;
-                }
-                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
-                    cI = cI - 1;
-                    fI = fI + 1;
-                }
-                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
-                    cI = cI - 1;
-                    fI = fI - 1;
-                }
-                else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
-                    cI = cI + 1;
-                    fI = fI - 1;
-                }
-               
-                
-                
-                // condicion del movimiento de la torre
-                
-                
-                else if (casillaF.getColumna() > casillaI.getColumna()){
-                    cI = cI + 1;
-                }
-                else if(casillaF.getColumna() < casillaI.getColumna()){
-                    cI = cI - 1;
-                }
-                else if(casillaF.getFila() < casillaI.getFila()){
-                    fI = fI - 1;
-                }
-                else if(casillaF.getFila() > casillaI.getFila()){
-                    fI = fI + 1;
-                }   
-                    
-                 
-                }
-               
-                  if(!casillaF.isOcupada()){//Que en la casilla final no haya nada    TIPO 1 (MOVIMIENTO NORMAL)
-                    if(!ocupada){//Si no hay nada en la trayectoria
+        boolean ocupada = false, efectivo = false;
+        int cI,cF,fI,fF, restaA, restaB;
+        cI = casillaI.getColumna() - 'A';//x Inicial
+        fI = casillaI.getFila() - 1;//y Inicial
+        cF = casillaF.getColumna() - 'A';//x Final 
+        fF = casillaF.getFila() - 1 ;//y Final
+        restaA = fI - fF;
+        restaB = cI - cF;
+        if(Math.abs(restaA) == Math.abs(restaB) || (fI==fF || cI==cF)){
+            ocupada = trayectoria(tablero, casillaI, casillaF);
+            if(!ocupada){
+                if(!casillaF.isOcupada()){//Que en la casilla final no haya nada    TIPO 1 (MOVIMIENTO NORMAL)
                         casillaI.setFichaNull();
                         super.asociarFichaTablero(this, casillaF);
-                         efectivo = true;
-                    }
-                    else{
-                        ///System.out.println("Hay una ficha en la trayectoria");
-                         JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
-                    }
+                        efectivo = true;
                 }
                 else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
-                   if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
-                        if(!ocupada){
-                              if(casillaF.getFicha() instanceof Rey){
-                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
-                            }
-                            this.comer(casillaI,casillaF);
-                             efectivo = true;
-                        }
-                        else{
-                            //System.out.println("Hay una ficha en trayectoria");
-                             JOptionPane.showMessageDialog(null,"Hay una ficha en trayectoria");
-                        }
-                   }
-                   else{
-                       //System.out.println("Ambas fichas son del mismo color");
-                       JOptionPane.showMessageDialog(null,"Ambas fichas son del mismo color");
-                   }
-                }    
+                    if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
+                        this.comer(casillaI,casillaF);
+                        efectivo = true;   
+                    }
+                    else{
+                       // System.out.println("Ambas fichas son del mismo color");
+                    }
+                } 
             }
-                 
-            
             else{
-                //System.out.println("De esa forma no se mueve la Reina");
-                JOptionPane.showMessageDialog(null,"De esa forma no se mueve la Reina");
+                //Hay una ficha en la trayectoria 
             }
-            
-            
-            return efectivo;
-        
+        }
+        else{
+           // System.out.println("De esa forma no se mueve la reina");
+           JOptionPane.showMessageDialog(null,"De esa forma no se mueve la reina");
+        }
+        return efectivo;
     }
+    public void haceJaque(Tablero tablero){
+        int cI, fI, cF, fF, restaA, restaB;
+        cI = this.getCasilla().getColumna() - 'A';
+        fI = this.getCasilla().getFila() - 1;
+        Casilla casillaC;
+        Ficha rey;
+        rey = this;
+        boolean ocupada;
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                casillaC = tablero.getCasilla(i,j);
+                if(casillaC.getFicha() instanceof Rey && casillaC.getFicha().getColor() != this.getColor()){
+                    rey = casillaC.getFicha();
+                    System.out.println(" REY:" + rey.getCasilla());
+                }
+            }
+        }
+        cF = rey.getCasilla().getColumna() - 'A';
+        fF = rey.getCasilla().getFila() - 1;
+        restaA = fI - fF;
+        restaB = cI - cF;
+
+        if(Math.abs(restaA) == Math.abs(restaB) || (fI==fF || cI==cF)){
+            ocupada = trayectoria(tablero, this.getCasilla(), rey.getCasilla());
+            if(!ocupada){
+                this.setJaque(true);
+            }
+        }
+    }
+    
+
+    
+    
     
 
     @Override
@@ -198,5 +211,8 @@ public class Reina extends Ficha {
         //Circulo cabeza
         g.draw(new Ellipse2D.Double(x+20, y+10, 10, 10));
     }
+    
+    
+   
 
 }

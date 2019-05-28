@@ -34,6 +34,7 @@ public class Casilla extends Dibujable {
 
     public int getFila() {
         return fila;
+    
     }
 
     public char getColumna() {

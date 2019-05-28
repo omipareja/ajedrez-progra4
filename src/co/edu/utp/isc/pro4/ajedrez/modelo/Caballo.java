@@ -70,6 +70,29 @@ public class Caballo extends Ficha {
 
     
    
+        @Override
+    public void haceJaque(Tablero tablero){
+            int cI, fI, cF, fF;
+            cI = this.getCasilla().getColumna() - 'A';
+            fI = this.getCasilla().getFila() - 1;
+            Casilla casillaC;
+            Ficha rey;
+            rey = this;
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+                    casillaC = tablero.getCasilla(i,j);
+                    if(casillaC.getFicha() instanceof Rey && casillaC.getFicha().getColor() != this.getColor()){
+                        rey = casillaC.getFicha();
+                    }
+                }
+            }
+            cF = rey.getCasilla().getColumna() - 'A';
+            fF = rey.getCasilla().getFila() - 1;
+            if((fI-fF)*(fI-fF) + (cI-cF)*(cI-cF) == 5){
+                this.setJaque(true);
+            }
+    }
+
 
     @Override
    public void draw(Graphics2D g, float x, float y) { 

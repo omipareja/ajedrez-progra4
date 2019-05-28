@@ -23,7 +23,7 @@ public class Jugador {
     }
     
     
-    public void jugar(Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
+    public void jugar(Casilla casillaI, Casilla casillaF) {
          boolean efectivo;
         efectivo = false;
         if(casillaI.isOcupada()){
@@ -31,11 +31,14 @@ public class Jugador {
             f = casillaI.getFicha();
              System.out.println("Color: "+ casillaI.getFicha().getColor()+". Turno:"+ajedrez.getTurno());
              // JOptionPane.showMessageDialog(null,"Color: "+ casillaI.getFicha().getColor()+". Turno:"+ajedrez.getTurno());
-            if((casillaI.getFicha().getColor() == Color.BLANCO) && (ajedrez.getTurno() == 0) 
-                    
-                || (casillaI.getFicha().getColor() == Color.NEGRO) && (ajedrez.getTurno() == 1))
-                efectivo = f.mover(ajedrez.getTablero(), casillaI, casillaF);
-        
+            if((casillaI.getFicha().getColor() == Color.BLANCO) && (ajedrez.getTurno() == 0)//Valida si el turno concuerda on el color de ficha que selecciono 
+                || (casillaI.getFicha().getColor() == Color.NEGRO) && (ajedrez.getTurno() == 1)){
+                //System.out.println("JAQUEEE: " + hayJaque(ajedrez.getTablero()));
+                    if(hayJaque(ajedrez.getTablero())){
+                    JOptionPane.showMessageDialog(null,"JAQUE!");
+                }
+                efectivo = f.mover(ajedrez.getTablero(), casillaI, casillaF);   
+            }
     
             else{
                 
@@ -56,12 +59,54 @@ public class Jugador {
              JOptionPane.showMessageDialog(null,"Vuelva a internarlo");
         
     }
+         else if(efectivo){
+            validarJaqueFichasVsRey(ajedrez.getTablero());
+        }
     
     
     }
     
-
+        private void validarJaqueFichasVsRey(Tablero tablero){//Valida si despues de mover una ficha mia, hace jaque
+        int turno;
+        turno = ajedrez.getTurno();
+        Casilla casillaC;
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                casillaC = tablero.getCasilla(i,j);
+                if(casillaC.isOcupada()){
+                    if((turno == 0 && casillaC.getFicha().getColor() == Color.BLANCO)
+                    || (turno == 1 && casillaC.getFicha().getColor() == Color.NEGRO)){
+                        casillaC.getFicha().haceJaque(tablero);
+                    }     
+                }
+            }
+        }
+    }
     
+
+        private boolean hayJaque(Tablero tablero){//Consulta si hay jaque por parte de las fichas enemigas
+        int turno; 
+        turno = ajedrez.getTurno();
+        boolean jaque = false;
+        Casilla casillaC;
+
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                casillaC = tablero.getCasilla(i,j);
+                if(casillaC.isOcupada()){
+                    if((turno == 0 && casillaC.getFicha().getColor() == Color.NEGRO)
+                    || (turno == 1 && casillaC.getFicha().getColor() == Color.BLANCO)){
+                        jaque = casillaC.getFicha().getJaque();
+                        System.out.println("-JAQUE: "+ jaque + " TURNO: " + turno);
+                        if(jaque)
+                            return jaque;    
+                    }   
+                }
+            }
+        }
+        return jaque;
+        }
+        
 
     public void setAjedrez(Ajedrez ajedrez) {
         this.ajedrez = ajedrez;

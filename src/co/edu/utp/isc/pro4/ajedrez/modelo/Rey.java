@@ -210,7 +210,10 @@ public class Rey extends Ficha {
   
         
     }
-    
+
+    @Override
+    public void haceJaque(Tablero tablero) {
+    }
 
       
     }

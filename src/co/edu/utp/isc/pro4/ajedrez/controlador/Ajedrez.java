@@ -5,7 +5,7 @@
  */
 package co.edu.utp.isc.pro4.ajedrez.controlador;
 
-import execepciones.MovimientoNoValidoException;
+;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Alfil;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Caballo;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Casilla;
@@ -155,7 +155,7 @@ public class Ajedrez {
         c.setFicha(f);
     }
     
-    public void moverFicha(String inicio, String fin) throws MovimientoNoValidoException {
+    public void moverFicha(String inicio, String fin) {
         jugadores[turno].jugar(tablero.getCasilla(inicio),tablero.getCasilla(fin));
         this.mostrarTablero();
         this.cambioTurno();

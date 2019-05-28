@@ -23,7 +23,7 @@ public class Peon extends Ficha {
     }
 
     @Override
-    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
+    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF)  {
         //TODO: Mover como peon
         
         boolean ocupada = false,efectivo = false;
@@ -38,7 +38,7 @@ public class Peon extends Ficha {
             Casilla casillaC;   
 
             if((Math.abs(restaA) == 2 || Math.abs(restaA) == 1)){// Condicion general de movimiento del peon
-                 if(restaA == 2 && casillaI.getFicha().getColor() == Color.BLANCO){//Caso para mover 2 casillas BLANCO
+                   if(restaA == -2 && casillaI.getFicha().getColor() == Color.BLANCO){//Caso para mover 2 casillas BLANCO
                     fI = fI + 1;
                     casillaC = tablero.getCasilla(fI,cI);
                     if(fI != fF || cI != cF){
@@ -97,34 +97,32 @@ public class Peon extends Ficha {
                         if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
                             if(Math.abs(restaB) == 1){
                                 if(casillaI.getFicha().getColor() == Color.BLANCO && restaA == -1){
-                                      if(casillaF.getFicha() instanceof Rey){
-                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
-                            }
                                     this.comer(casillaI, casillaF); 
                                      efectivo = true;
                                 }
                                 else if(casillaI.getFicha().getColor() == Color.NEGRO && restaA == 1){
-                                      if(casillaF.getFicha() instanceof Rey){
-                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
-                            }
                                     this.comer(casillaI, casillaF);
                                     efectivo = true;
                                 }    
                             }
-                            else{
-                                //throw new MovimientoNoValidoException("Asi no come el peon");
-                                //JOptionPane.showMessageDialog(null,"Asi no come el Peon");
-                                   JOptionPane.showMessageDialog(null,"Asi no come el Peon");
-                            }    
+                            
+                            
+                                
+                        }
+                         else{
+                            //throw new MovimientoNoValidoException("Asi no come el peon");
+                            JOptionPane.showMessageDialog(null,"De esa forma no se mueve el peon");    
                         }
                     }
-                }
+                }   
+                    }
+                
                 else if(ocupada){//Movimiento no valido por elemento en la trayectoria
                    //  throw new MovimientoNoValidoException("Movimiento no valido por ficha en trayectoria");
                       JOptionPane.showMessageDialog(null,"Movimiento no valido por ficha en trayectoria");
 
                 }
-            }
+            
             else{
              //  throw new MovimientoNoValidoException("De esa forma no se mueve el peon");
                 JOptionPane.showMessageDialog(null,"De esa forma no se mueve el peon");
@@ -147,6 +145,41 @@ public class Peon extends Ficha {
         g.setPaint(java.awt.Color.BLACK);
         g.draw(new Ellipse2D.Float(x + 17, y + 15, 16, 16));
         g.draw(new Rectangle2D.Float(x + 15, y + 30, 20, 15));
+        
+        
+        
+    }
+
+    
+    
+     @Override
+    public void haceJaque(Tablero tablero){
+        int cI, fI, cF, fF, restaA, restaB;
+        cI = this.getCasilla().getColumna() - 'A';
+        fI = this.getCasilla().getFila() - 1;
+        Casilla casillaC;
+        Ficha rey;
+        rey = this;
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                casillaC = tablero.getCasilla(i,j);
+                if(casillaC.getFicha() instanceof Rey && casillaC.getFicha().getColor() != this.getColor()){
+                    rey = casillaC.getFicha();
+                }
+            }
+        }
+        cF = rey.getCasilla().getColumna() - 'A';
+        fF = rey.getCasilla().getFila() - 1;
+        restaA = fI - fF;
+        restaB = cF - cI;
+        if(Math.abs(restaB) == 1){
+            if(this.getColor() == Color.BLANCO && restaA == -1){
+                setJaque(true);
+            } 
+            else if(this.getColor() == Color.NEGRO && restaA == 1){
+                setJaque(true);
+            }    
+        }
     }
 
     }
